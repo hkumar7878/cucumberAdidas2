@@ -39,7 +39,10 @@ public class Women_TShirt_Page extends Hook{
 	public WebElement txt_PageNumber;
 	
 	@FindBy(how = How.XPATH, using = "(//li[@class='col-md-3 img-thumbnail card'])[1]") 
-	public WebElement img_FirstWomenTShirtProduct;
+	public WebElement img_FirstWomenTShirtProduct_Name;
+	
+	@FindBy(how = How.XPATH, using = "(//li[@class='col-md-3 img-thumbnail card'])[1]") 
+	public WebElement txt_FirstWomenTShirtProduct_Price;
 	
 	@FindBy(how = How.XPATH, using = "(//ul[@class='productDescription clearfix productRowList']//a[contains(text(), 'Adidas TRAINING FREELIFT TEE')])[1]") 
 	public WebElement txt_FirstWomenTShirtProduct;
@@ -50,7 +53,8 @@ public class Women_TShirt_Page extends Hook{
 	@FindBy(how = How.XPATH, using = "//div[text()[contains(.,'Adidas')]]") 
 	public WebElement txt_FirstTShirtProduct_OnSecondWindow;
 	
-	String womenShirtTxt;
+	String womenTShirtName_Txt;
+	String womenTShirtPrice_Txt;
 	String tshirtProductOnNewTabWindow;
 	public void verify_WomenTshirt_Pg_Header()
 	{
@@ -131,9 +135,10 @@ public class Women_TShirt_Page extends Hook{
 	{
 		try
 		{
-			genUtil.wait_pageToLoad(driver, img_FirstWomenTShirtProduct, "elementClickable", 20);
-			womenShirtTxt=genUtil.getElementText(txt_FirstWomenTShirtProduct);
-			genUtil.clickBtn(img_FirstWomenTShirtProduct);
+			genUtil.wait_pageToLoad(driver, img_FirstWomenTShirtProduct_Name, "elementClickable", 20);
+			womenTShirtName_Txt=genUtil.getElementText(txt_FirstWomenTShirtProduct);
+			womenTShirtPrice_Txt=genUtil.getElementText(womenTShirtPrice_Txt);
+			genUtil.clickBtn(img_FirstWomenTShirtProduct_Name);
 			genUtil.switchToBrowserTab(driver);
 			tshirtProductOnNewTabWindow=txt_FirstTShirtProduct_OnSecondWindow.getText();
 			
@@ -150,7 +155,7 @@ public class Women_TShirt_Page extends Hook{
 	public void compareWomenTshirtName()
 	{
 		boolean flag;
-		flag=genUtil.campareText(womenShirtTxt, tshirtProductOnNewTabWindow);
+		flag=genUtil.campareText(womenTShirtName_Txt, tshirtProductOnNewTabWindow);
 		if(flag)
 				System.out.println("Correct product is opened in new window");
 		else
