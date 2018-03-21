@@ -96,19 +96,19 @@ public class Verify_Women_TShirt_Checkout_Process{
 
 	@Then("^Validate user is routed to second women tshirts page$")
 	public void validate_user_is_routed_to_second_women_tshirts_page() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+		womenTshirtPage.verify_Pagination_LinkEnablity();
 	   
 	}
 
 	@Then("^Click first Women Tshirt item$")
 	public void click_first_Women_Tshirt_item() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	  womenTshirtPage.click_WomenTshirtProduct();
 	  
 	}
 
 	@Then("^Verify correct selected product open in next window$")
 	public void verify_correct_selected_product_open_in_next_window() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+		womenTshirtPage.compareWomenTshirtName();
 	   
 	}
 

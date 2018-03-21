@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 public class GenericUtility {
 	
@@ -57,7 +58,6 @@ public class GenericUtility {
 		{
 		
 		JavascriptExecutor js= (JavascriptExecutor) driver;
-		//js.executeScript("window.scrollBy(0,12250)", "");
 		js.executeScript("arguments[0].scrollIntoView();", we);
 		System.out.println("Page is scrolled successfully");
 		}
@@ -91,4 +91,56 @@ public class GenericUtility {
 		}
 	}
 	
+	public static String getElementText(WebElement we)
+	{
+		String elementTxt = null;
+		try
+		{
+			elementTxt=we.getText();
+		}
+		
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return elementTxt;
+	}
+	
+	public static void switchToBrowserTab(WebDriver driver)
+	{
+		for(String winHandle : driver.getWindowHandles())
+		{
+		    driver.switchTo().window(winHandle);
+		}
+	}
+	
+	
+	public static String getParentWindowHandle(WebDriver driver)
+	{
+		String parentWindowHandle = null;
+		try
+		{
+			parentWindowHandle=driver.getWindowHandle();
+		}
+		
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return parentWindowHandle;
+	}
+	
+	public static boolean campareText(String expText,String actText)
+	{
+		//Assert.assertTrue(expText.contains(expText));
+		boolean flag;
+		if(expText.contains(actText))
+		{
+			flag=true;
+		}
+		
+		else
+			flag=false;
+		return flag;
+	}
 }

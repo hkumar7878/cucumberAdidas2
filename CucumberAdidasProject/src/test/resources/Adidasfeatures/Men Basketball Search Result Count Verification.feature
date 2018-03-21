@@ -35,10 +35,10 @@ Feature: Men Basketball Test Cases feature
    Then Click on T Shirts link
    Then verify Women T Shirt page appears
    And Scroll down to the bottom of the Page
-    And Click on navigation arrow button
-   # Then Validate user is routed to second women tshirts page
-   # Then Click first Women Tshirt item
-  #  And Verify correct selected product open in next window
+   And Click on navigation arrow button
+   Then Validate user is routed to second women tshirts page
+   Then Click first Women Tshirt item
+    And Verify correct selected product open in next window
    # Then Click on Add to bag button without selecting a size
   #  Then Verify the validation message about the selection of size
    # Then Select the correct size and verify validation message disappears
