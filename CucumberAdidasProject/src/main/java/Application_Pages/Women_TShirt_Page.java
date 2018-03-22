@@ -33,29 +33,44 @@ public class Women_TShirt_Page extends Hook{
 	@FindBy(how = How.XPATH, using = "(//li[@class='col-md-3 img-thumbnail card'])[last()]") 
 	public WebElement img_Last;  // this webelemt is used to scroll till pagination section
 	
-	////ul[@id='pager1']/li[@class='current']  
-	
 	@FindBy(how = How.XPATH, using = "//ul[@id='pager1']/li[@class='current']") 
 	public WebElement txt_PageNumber;
 	
 	@FindBy(how = How.XPATH, using = "(//li[@class='col-md-3 img-thumbnail card'])[1]") 
-	public WebElement img_FirstWomenTShirtProduct_Name;
+	public WebElement img_FirstWomenTShirtProduct_ParentWindow;
 	
-	@FindBy(how = How.XPATH, using = "(//li[@class='col-md-3 img-thumbnail card'])[1]") 
-	public WebElement txt_FirstWomenTShirtProduct_Price;
+	@FindBy(how = How.XPATH, using = "(//li[@class='col-md-3 img-thumbnail card']/div//ul//li//span[contains(@class,'PLPPriceColor')])[1]") 
+	public WebElement txt_FirstWomenTShirtPrice_ParentWindow;
 	
-	@FindBy(how = How.XPATH, using = "(//ul[@class='productDescription clearfix productRowList']//a[contains(text(), 'Adidas TRAINING FREELIFT TEE')])[1]") 
-	public WebElement txt_FirstWomenTShirtProduct;
+	//@FindBy(how = How.XPATH, using = "(//ul[@class='productDescription clearfix productRowList']//a[contains(text(), 'Adidas TRAINING FREELIFT TEE')])[1]") 
+	//public WebElement txt_FirstWomenTShirtName_ParentWindow;
+	
+	@FindBy(how = How.XPATH, using = "(//ul[@class='productDescription clearfix productRowList']//li//a)[1]") 
+	public WebElement txt_FirstWomenTShirtName_ParentWindow;
+	
+	//   (//ul[@class='productDescription clearfix productRowList']//li//a)[1]
+	
+	@FindBy(how = How.XPATH, using = "//div[@id='productBody']//div[@id='productName']") 
+	public WebElement txt_FirstTShirtProduct_Name_SecondWindow;
+
+	
+	//@FindBy(how = How.XPATH, using = "//div[text()[contains(.,'Adidas')]]") 
+	//public WebElement txt_FirstWomenTShirtPrice_SecondWindow;
+	
+	@FindBy(how = How.XPATH, using = "//div[@id='productBody']//span[@id='currentPrice']") 
+	public WebElement txt_FirstWomenTShirtPrice_SecondWindow;
 	
 	
-	////div[text()[contains(.,'Adidas')]]
 	
-	@FindBy(how = How.XPATH, using = "//div[text()[contains(.,'Adidas')]]") 
-	public WebElement txt_FirstTShirtProduct_OnSecondWindow;
 	
-	String womenTShirtName_Txt;
-	String womenTShirtPrice_Txt;
-	String tshirtProductOnNewTabWindow;
+	String womenTShirtName_Txt_ParentWindow;
+	String womenTShirtPrice_Txt_ParentWindow;
+	String womenTShirtName_Txt_SecondWindow;
+	String womenTShirtPrice_Txt_SecondWindow;
+	
+	
+	
+	
 	public void verify_WomenTshirt_Pg_Header()
 	{
 		try
@@ -133,14 +148,17 @@ public class Women_TShirt_Page extends Hook{
 	
 	public void click_WomenTshirtProduct()
 	{
+		
+		//commiting latest changes
 		try
 		{
-			genUtil.wait_pageToLoad(driver, img_FirstWomenTShirtProduct_Name, "elementClickable", 20);
-			womenTShirtName_Txt=genUtil.getElementText(txt_FirstWomenTShirtProduct);
-			womenTShirtPrice_Txt=genUtil.getElementText(womenTShirtPrice_Txt);
-			genUtil.clickBtn(img_FirstWomenTShirtProduct_Name);
+			genUtil.wait_pageToLoad(driver, img_FirstWomenTShirtProduct_ParentWindow, "elementClickable", 20);
+			womenTShirtName_Txt_ParentWindow=genUtil.getElementText(txt_FirstWomenTShirtName_ParentWindow);
+			womenTShirtPrice_Txt_ParentWindow=genUtil.getElementText(txt_FirstWomenTShirtPrice_ParentWindow);
+			genUtil.clickBtn(img_FirstWomenTShirtProduct_ParentWindow);
 			genUtil.switchToBrowserTab(driver);
-			tshirtProductOnNewTabWindow=txt_FirstTShirtProduct_OnSecondWindow.getText();
+			womenTShirtName_Txt_SecondWindow=genUtil.getElementText(txt_FirstTShirtProduct_Name_SecondWindow);
+			womenTShirtPrice_Txt_SecondWindow=genUtil.getElementText(txt_FirstWomenTShirtPrice_SecondWindow);
 			
 			
 		}
@@ -154,9 +172,10 @@ public class Women_TShirt_Page extends Hook{
 	
 	public void compareWomenTshirtName()
 	{
-		boolean flag;
-		flag=genUtil.campareText(womenTShirtName_Txt, tshirtProductOnNewTabWindow);
-		if(flag)
+		boolean flag,flag1 = false;
+		flag=GenericUtility.campareText(womenTShirtName_Txt_ParentWindow, womenTShirtName_Txt_SecondWindow);
+		flag1=GenericUtility.campareText(womenTShirtPrice_Txt_ParentWindow, womenTShirtPrice_Txt_SecondWindow);
+		if(flag && flag1)
 				System.out.println("Correct product is opened in new window");
 		else
 			System.out.println("Correct product is NOT opened in new window");
