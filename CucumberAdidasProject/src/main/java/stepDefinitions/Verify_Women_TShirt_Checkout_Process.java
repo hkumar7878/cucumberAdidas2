@@ -114,13 +114,13 @@ public class Verify_Women_TShirt_Checkout_Process{
 
 	@Then("^Click on Add to bag button without selecting a size$")
 	public void click_on_Add_to_bag_button_without_selecting_a_size() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+		womenTshirtPage.click_AddToBagButton();
 	   
 	}
 
 	@Then("^Verify the validation message about the selection of size$")
 	public void verify_the_validation_message_about_the_selection_of_size() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	   womenTshirtPage.verify_AddToBag_ErrorMsg("please select a size");
 	  
 	}
 

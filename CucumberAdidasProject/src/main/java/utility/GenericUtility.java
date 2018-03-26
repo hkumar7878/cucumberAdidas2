@@ -45,6 +45,12 @@ public class GenericUtility {
 			WebDriverWait wait=new WebDriverWait(driver,timeToWait);
 			WebElement we1=(WebElement) wait.until(ExpectedConditions.elementToBeClickable(we));
 			break;
+			
+			/*case "elementClickable1":
+				
+				WebDriverWait wait1=new WebDriverWait(driver,timeToWait);
+				WebElement we2=(WebElement) wait.until(ExpectedConditions.elementToBeClickable(we));
+				break;*/
 		
 		default:		
 			break;
@@ -87,6 +93,59 @@ public class GenericUtility {
 		
 		catch(Exception e)
 		{
+			
+			e.printStackTrace();
+		}
+	}
+	
+	public static void clickBtn(WebDriver driver,WebElement we)
+	{
+		try
+		{
+			if(we.isDisplayed() && we.isEnabled())
+			{
+				we.click();
+			}
+			
+			else
+			{
+				System.out.println(we + "button is not displayed or enabled");
+			}
+		}
+	
+		
+		catch(Exception e)
+		{
+			JavascriptExecutor js= (JavascriptExecutor) driver;
+			js.executeScript("document.getElementById('we').click();");
+			System.out.println("Element" + we.getText() + " is clicked successfully");
+			e.printStackTrace();
+		}
+	}
+	
+	public static void clickBtn_ActionClass(WebDriver driver,WebElement we)
+	{
+		try
+		{
+			if(we.isDisplayed() && we.isEnabled())
+			{
+				Actions action = new Actions(driver);
+				action.moveToElement(we).click().build().perform();
+
+			}
+			
+			else
+			{
+				System.out.println(we + "button is not displayed or enabled");
+			}
+		}
+	
+		
+		catch(Exception e)
+		{
+			JavascriptExecutor js= (JavascriptExecutor) driver;
+			js.executeScript("arguments[0].click();", we);
+			System.out.println("Element" + we.getText() + " is clicked successfully");
 			e.printStackTrace();
 		}
 	}
@@ -135,6 +194,20 @@ public class GenericUtility {
 		//Assert.assertTrue(expText.contains(expText));
 		boolean flag;
 		if(expText.contains(actText))
+		{
+			flag=true;
+		}
+		
+		else
+			flag=false;
+		return flag;
+	}
+	
+	public static boolean equalsText(String expText,String actText)
+	{
+		//Assert.assertTrue(expText.contains(expText));
+		boolean flag;
+		if(expText.equals(actText))
 		{
 			flag=true;
 		}

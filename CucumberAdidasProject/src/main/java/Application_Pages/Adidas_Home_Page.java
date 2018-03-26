@@ -54,6 +54,8 @@ public class Adidas_Home_Page extends Hook{
 	{
 		try
 		{
+			
+			genUtil.wait_pageToLoad(driver, logo_Adidas, "elementClickable", 30);
 			Assert.assertTrue(logo_Adidas.isDisplayed(), "PB home page is not displayed");
 			System.out.println("Adidas online store HOME Page is displayed successfully");
 		}

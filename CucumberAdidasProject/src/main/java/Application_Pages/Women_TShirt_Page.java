@@ -1,7 +1,9 @@
 package Application_Pages;
 
+import junit.framework.Assert;
 import helpers.Hook;
 
+import org.apache.http.util.Asserts;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,6 +11,10 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
 
+
+
+
+import test.tmp.AssertEqualsTest;
 import utility.GenericUtility;
 
 public class Women_TShirt_Page extends Hook{
@@ -36,37 +42,36 @@ public class Women_TShirt_Page extends Hook{
 	@FindBy(how = How.XPATH, using = "//ul[@id='pager1']/li[@class='current']") 
 	public WebElement txt_PageNumber;
 	
-	@FindBy(how = How.XPATH, using = "(//li[@class='col-md-3 img-thumbnail card'])[1]") 
+	@FindBy(how = How.XPATH, using = "(//div[@class='inner'])[1]") 
 	public WebElement img_FirstWomenTShirtProduct_ParentWindow;
 	
 	@FindBy(how = How.XPATH, using = "(//li[@class='col-md-3 img-thumbnail card']/div//ul//li//span[contains(@class,'PLPPriceColor')])[1]") 
 	public WebElement txt_FirstWomenTShirtPrice_ParentWindow;
 	
-	//@FindBy(how = How.XPATH, using = "(//ul[@class='productDescription clearfix productRowList']//a[contains(text(), 'Adidas TRAINING FREELIFT TEE')])[1]") 
-	//public WebElement txt_FirstWomenTShirtName_ParentWindow;
 	
 	@FindBy(how = How.XPATH, using = "(//ul[@class='productDescription clearfix productRowList']//li//a)[1]") 
 	public WebElement txt_FirstWomenTShirtName_ParentWindow;
-	
-	//   (//ul[@class='productDescription clearfix productRowList']//li//a)[1]
 	
 	@FindBy(how = How.XPATH, using = "//div[@id='productBody']//div[@id='productName']") 
 	public WebElement txt_FirstTShirtProduct_Name_SecondWindow;
 
 	
-	//@FindBy(how = How.XPATH, using = "//div[text()[contains(.,'Adidas')]]") 
-	//public WebElement txt_FirstWomenTShirtPrice_SecondWindow;
-	
 	@FindBy(how = How.XPATH, using = "//div[@id='productBody']//span[@id='currentPrice']") 
 	public WebElement txt_FirstWomenTShirtPrice_SecondWindow;
 	
 	
+	@FindBy(how = How.XPATH, using = "//button[@class='addToBagBtn']") 
+	public WebElement btn_addToBag_SecondWindow;
+	
+	@FindBy(how = How.XPATH, using = "//div[@id='errorMessage']") 
+	public WebElement txt_addToBag_Validation_Msg_SecondWindow;
 	
 	
 	String womenTShirtName_Txt_ParentWindow;
 	String womenTShirtPrice_Txt_ParentWindow;
 	String womenTShirtName_Txt_SecondWindow;
 	String womenTShirtPrice_Txt_SecondWindow;
+	String womenTShirtPrice_Txt_SecondWindow1;
 	
 	
 	
@@ -152,15 +157,17 @@ public class Women_TShirt_Page extends Hook{
 		//commiting latest changes
 		try
 		{
-			genUtil.wait_pageToLoad(driver, img_FirstWomenTShirtProduct_ParentWindow, "elementClickable", 20);
+			
+			genUtil.wait_pageToLoad(driver, img_FirstWomenTShirtProduct_ParentWindow, "elementClickable", 30);
 			womenTShirtName_Txt_ParentWindow=genUtil.getElementText(txt_FirstWomenTShirtName_ParentWindow);
 			womenTShirtPrice_Txt_ParentWindow=genUtil.getElementText(txt_FirstWomenTShirtPrice_ParentWindow);
-			genUtil.clickBtn(img_FirstWomenTShirtProduct_ParentWindow);
+			genUtil.clickBtn_ActionClass(driver,img_FirstWomenTShirtProduct_ParentWindow);
+			//genUtil.clickBtn_ActionClass(driver,img_FirstWomenTShirtProduct_ParentWindow);
 			genUtil.switchToBrowserTab(driver);
 			womenTShirtName_Txt_SecondWindow=genUtil.getElementText(txt_FirstTShirtProduct_Name_SecondWindow);
 			womenTShirtPrice_Txt_SecondWindow=genUtil.getElementText(txt_FirstWomenTShirtPrice_SecondWindow);
-			
-			
+			womenTShirtPrice_Txt_SecondWindow1= womenTShirtPrice_Txt_SecondWindow.substring(0, 8);
+			System.out.println(womenTShirtPrice_Txt_SecondWindow1);
 		}
 		
 		catch(Exception e)
@@ -169,16 +176,40 @@ public class Women_TShirt_Page extends Hook{
 		}
 	}
 	
-	
 	public void compareWomenTshirtName()
 	{
 		boolean flag,flag1 = false;
 		flag=GenericUtility.campareText(womenTShirtName_Txt_ParentWindow, womenTShirtName_Txt_SecondWindow);
-		flag1=GenericUtility.campareText(womenTShirtPrice_Txt_ParentWindow, womenTShirtPrice_Txt_SecondWindow);
+		flag1=GenericUtility.equalsText(womenTShirtPrice_Txt_ParentWindow, womenTShirtPrice_Txt_SecondWindow1);
 		if(flag && flag1)
 				System.out.println("Correct product is opened in new window");
 		else
 			System.out.println("Correct product is NOT opened in new window");
 		}
+	
+	public void click_AddToBagButton()
+	{
+		genUtil.clickBtn(btn_addToBag_SecondWindow);
+	}
+	
+	public void verify_AddToBag_ErrorMsg(String exp_ErrMsg)
+	{
+		
+		try
+		{
+		boolean flag=false;
+		String act_ErrMsg=txt_addToBag_Validation_Msg_SecondWindow.getText();
+		flag=GenericUtility.campareText(exp_ErrMsg, act_ErrMsg);
+		Assert.assertTrue(flag);
+		System.out.println("Proper Valiation Message" + exp_ErrMsg + "is displayed");
+		}
+		
+		catch(Exception e)
+		{
+			System.out.println("Proper Valiation Message" + exp_ErrMsg + "NOT is displayed");
+			e.printStackTrace();
+		}
+		
+	}
 
 }

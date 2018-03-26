@@ -39,8 +39,8 @@ Feature: Men Basketball Test Cases feature
    Then Validate user is routed to second women tshirts page
    Then Click first Women Tshirt item
     And Verify correct selected product open in next window
-   # Then Click on Add to bag button without selecting a size
-  #  Then Verify the validation message about the selection of size
+   Then Click on Add to bag button without selecting a size
+  Then Verify the validation message about the selection of size
    # Then Select the correct size and verify validation message disappears
   #  And Now click on Add To Bag button
   #  Then Verify that user is routed to Bag page
