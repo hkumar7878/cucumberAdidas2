@@ -2,6 +2,7 @@ package utility;
 
 import helpers.Hook;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -46,11 +47,11 @@ public class GenericUtility {
 			WebElement we1=(WebElement) wait.until(ExpectedConditions.elementToBeClickable(we));
 			break;
 			
-			/*case "elementClickable1":
+			case "presenceOfElement":
 				
-				WebDriverWait wait1=new WebDriverWait(driver,timeToWait);
-				WebElement we2=(WebElement) wait.until(ExpectedConditions.elementToBeClickable(we));
-				break;*/
+				//WebDriverWait wait1=new WebDriverWait(driver,timeToWait);
+			
+				break;
 		
 		default:		
 			break;
@@ -117,7 +118,8 @@ public class GenericUtility {
 		catch(Exception e)
 		{
 			JavascriptExecutor js= (JavascriptExecutor) driver;
-			js.executeScript("document.getElementById('we').click();");
+			//js.executeScript("document.getElementById('we').click();");
+			js.executeScript("arguments[0].click();", we);
 			System.out.println("Element" + we.getText() + " is clicked successfully");
 			e.printStackTrace();
 		}
@@ -150,6 +152,25 @@ public class GenericUtility {
 		}
 	}
 	
+	
+	public static void clickBtn_JavaScript(WebDriver driver,WebElement we)
+	{
+		
+		//WebElement ele = driver.findElement(By.xpath("element_xpath"));
+		
+		try
+		{
+			//WebElement element = driver.findElement(By.id(""));
+	        JavascriptExecutor js =(JavascriptExecutor)driver;
+	        js.executeScript("arguments[0].click();", we);
+	        we.click();
+		}
+		
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 	public static String getElementText(WebElement we)
 	{
 		String elementTxt = null;
@@ -215,5 +236,14 @@ public class GenericUtility {
 		else
 			flag=false;
 		return flag;
+	}
+	
+	public static boolean pg_Header_Verification(WebElement we,String headerText)
+	{
+		boolean flag=false;
+		if(we.getText().equals(headerText))
+			return flag=true;
+		else
+			return flag;
 	}
 }

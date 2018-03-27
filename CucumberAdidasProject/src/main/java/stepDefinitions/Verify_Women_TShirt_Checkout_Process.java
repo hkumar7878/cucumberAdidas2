@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import Application_Pages.Add_To_Bag_Page;
 import Application_Pages.Adidas_Home_Page;
 import Application_Pages.Men_BaseketBall_Shoes_Page;
 import Application_Pages.Women_TShirt_Page;
@@ -16,8 +17,9 @@ public class Verify_Women_TShirt_Checkout_Process{
 	
 	Adidas_Home_Page homePage;
 	Women_TShirt_Page womenTshirtPage;
+	Add_To_Bag_Page addToBagPage;
 	public static WebDriver driver;
-	
+	String [] productDetails_SecondWindow=null;
 	Hook hook;
 	
 	@Test
@@ -102,7 +104,7 @@ public class Verify_Women_TShirt_Checkout_Process{
 
 	@Then("^Click first Women Tshirt item$")
 	public void click_first_Women_Tshirt_item() throws Throwable {
-	  womenTshirtPage.click_WomenTshirtProduct();
+		productDetails_SecondWindow= womenTshirtPage.click_WomenTshirtProduct();
 	  
 	}
 
@@ -126,20 +128,21 @@ public class Verify_Women_TShirt_Checkout_Process{
 
 	@Then("^Select the correct size and verify validation message disappears$")
 	public void select_the_correct_size_and_verify_validation_message_disappears() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	    womenTshirtPage.selectDesiredTshirtSize("30");
 	   
 	}
 
 	@Then("^Now click on Add To Bag button$")
 	public void now_click_on_Add_To_Bag_button() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+		womenTshirtPage.click_AddToBagButton();
 	    
 	}
 
 	@Then("^Verify that user is routed to Bag page$")
 	public void verify_that_user_is_routed_to_Bag_page() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
 	   
+		addToBagPage = new Add_To_Bag_Page(driver);
+		addToBagPage.compareSelectedProductDetails(productDetails_SecondWindow);
 	}
 
 	@Then("^Verify correctness of details for selected product$")

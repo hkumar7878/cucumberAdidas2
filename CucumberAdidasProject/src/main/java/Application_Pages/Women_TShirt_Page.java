@@ -1,14 +1,19 @@
 package Application_Pages;
 
+import java.util.List;
+
 import junit.framework.Assert;
 import helpers.Hook;
 
 import org.apache.http.util.Asserts;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
+
+
 
 
 
@@ -42,7 +47,7 @@ public class Women_TShirt_Page extends Hook{
 	@FindBy(how = How.XPATH, using = "//ul[@id='pager1']/li[@class='current']") 
 	public WebElement txt_PageNumber;
 	
-	@FindBy(how = How.XPATH, using = "(//div[@class='inner'])[1]") 
+	@FindBy(how = How.XPATH, using = "(//div[@id='plpDiv']//a[@class='productIdentifier productImageWrap'])[1]") 
 	public WebElement img_FirstWomenTShirtProduct_ParentWindow;
 	
 	@FindBy(how = How.XPATH, using = "(//li[@class='col-md-3 img-thumbnail card']/div//ul//li//span[contains(@class,'PLPPriceColor')])[1]") 
@@ -66,6 +71,8 @@ public class Women_TShirt_Page extends Hook{
 	@FindBy(how = How.XPATH, using = "//div[@id='errorMessage']") 
 	public WebElement txt_addToBag_Validation_Msg_SecondWindow;
 	
+	@FindBy(how=How.XPATH,using="//label[@class='productSizeLabel']")
+	private List<WebElement> label_WomenTshirtSizes_SecondWindow;
 	
 	String womenTShirtName_Txt_ParentWindow;
 	String womenTShirtPrice_Txt_ParentWindow;
@@ -151,29 +158,34 @@ public class Women_TShirt_Page extends Hook{
 		}
 	}
 	
-	public void click_WomenTshirtProduct()
+	public String [] click_WomenTshirtProduct()
 	{
 		
 		//commiting latest changes
 		try
 		{
 			
+			String [] productDetails;
 			genUtil.wait_pageToLoad(driver, img_FirstWomenTShirtProduct_ParentWindow, "elementClickable", 30);
+			Thread.sleep(3000);
 			womenTShirtName_Txt_ParentWindow=genUtil.getElementText(txt_FirstWomenTShirtName_ParentWindow);
 			womenTShirtPrice_Txt_ParentWindow=genUtil.getElementText(txt_FirstWomenTShirtPrice_ParentWindow);
-			genUtil.clickBtn_ActionClass(driver,img_FirstWomenTShirtProduct_ParentWindow);
 			//genUtil.clickBtn_ActionClass(driver,img_FirstWomenTShirtProduct_ParentWindow);
+			genUtil.clickBtn_JavaScript(driver,img_FirstWomenTShirtProduct_ParentWindow);
 			genUtil.switchToBrowserTab(driver);
 			womenTShirtName_Txt_SecondWindow=genUtil.getElementText(txt_FirstTShirtProduct_Name_SecondWindow);
 			womenTShirtPrice_Txt_SecondWindow=genUtil.getElementText(txt_FirstWomenTShirtPrice_SecondWindow);
 			womenTShirtPrice_Txt_SecondWindow1= womenTShirtPrice_Txt_SecondWindow.substring(0, 8);
 			System.out.println(womenTShirtPrice_Txt_SecondWindow1);
+			
+			
 		}
 		
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
+		return new String [] {"womenTShirtName_Txt_SecondWindow","womenTShirtPrice_Txt_SecondWindow1"};
 	}
 	
 	public void compareWomenTshirtName()
@@ -210,6 +222,37 @@ public class Women_TShirt_Page extends Hook{
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public void selectDesiredTshirtSize(String size)
+	
+	{
+		boolean flag=false;
+		for (WebElement tShirtSize: label_WomenTshirtSizes_SecondWindow)
+		{
+			if(tShirtSize.isEnabled() && tShirtSize.getText().equals(size))
+			{
+				genUtil.clickBtn(tShirtSize);
+				flag=true;
+				System.out.println("Size"  + size + "is available");
+				break;
+			}
+			
+		}
+		
+		if(!flag)
+		{
+			for (WebElement tShirtSize: label_WomenTshirtSizes_SecondWindow)
+			{
+				if(tShirtSize.isEnabled())
+				{
+					genUtil.clickBtn(tShirtSize);
+					System.out.println("Size"  + size + "is not available hence clicked on other available size");
+					break;
+				}
+				
+			} 
+		}
 	}
 
 }
