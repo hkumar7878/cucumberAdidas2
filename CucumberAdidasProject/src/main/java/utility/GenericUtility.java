@@ -37,7 +37,7 @@ public class GenericUtility {
 		}
 	}
 	
-	public static void wait_pageToLoad(WebDriver driver, WebElement we,String waitTypeOption,int timeToWait)
+	public static void wait_pageToLoad(WebDriver driver, WebElement we,String waitTypeOption,int timeToWait,String dynamicEle)
 	{
 		switch (waitTypeOption) 
 		{
@@ -49,9 +49,11 @@ public class GenericUtility {
 			
 			case "presenceOfElement":
 				
-				//WebDriverWait wait1=new WebDriverWait(driver,timeToWait);
-			
+				WebElement myDynamicElement = (new WebDriverWait(driver, 10))
+				  .until(ExpectedConditions.presenceOfElementLocated(By.xpath(dynamicEle)));
 				break;
+			
+		
 		
 		default:		
 			break;
@@ -245,5 +247,40 @@ public class GenericUtility {
 			return flag=true;
 		else
 			return flag;
+	}
+	
+	public static void enterText(WebElement we, String inputValue)
+	{
+		try
+		{
+			we.clear();
+			we.sendKeys(inputValue);
+		}
+		
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public static void check_Checkbox(WebElement we)
+	{
+		try
+		{
+			if(!we.isSelected())
+			{
+				we.click();
+			}
+			
+			else
+				System.out.println("Checkbox is already selected");
+		}
+		
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	
+		
 	}
 }

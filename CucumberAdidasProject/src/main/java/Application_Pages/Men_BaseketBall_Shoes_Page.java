@@ -99,7 +99,7 @@ public class Men_BaseketBall_Shoes_Page {
 		{
 			System.out.println("Price low to high link is displayed");
 			lnk_PriceLowToHigh.click();
-			GenericUtility.wait_pageToLoad(driver,lnk_PriceLowToHigh,"elementClickable",10);
+			GenericUtility.wait_pageToLoad(driver,lnk_PriceLowToHigh,"elementClickable",10,"");
 		}
 		
 		else

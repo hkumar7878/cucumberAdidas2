@@ -2,7 +2,8 @@ package Application_Pages;
 
 import java.util.List;
 
-import junit.framework.Assert;
+
+
 import helpers.Hook;
 
 import org.apache.http.util.Asserts;
@@ -12,12 +13,7 @@ import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
-
-
-
-
-
-
+import org.testng.Assert;
 
 import test.tmp.AssertEqualsTest;
 import utility.GenericUtility;
@@ -166,7 +162,7 @@ public class Women_TShirt_Page extends Hook{
 		{
 			
 			String [] productDetails;
-			genUtil.wait_pageToLoad(driver, img_FirstWomenTShirtProduct_ParentWindow, "elementClickable", 30);
+			genUtil.wait_pageToLoad(driver, img_FirstWomenTShirtProduct_ParentWindow, "elementClickable", 30,"");
 			Thread.sleep(3000);
 			womenTShirtName_Txt_ParentWindow=genUtil.getElementText(txt_FirstWomenTShirtName_ParentWindow);
 			womenTShirtPrice_Txt_ParentWindow=genUtil.getElementText(txt_FirstWomenTShirtPrice_ParentWindow);
@@ -185,7 +181,7 @@ public class Women_TShirt_Page extends Hook{
 		{
 			e.printStackTrace();
 		}
-		return new String [] {"womenTShirtName_Txt_SecondWindow","womenTShirtPrice_Txt_SecondWindow1"};
+		return new String [] {womenTShirtName_Txt_SecondWindow,womenTShirtPrice_Txt_SecondWindow1};
 	}
 	
 	public void compareWomenTshirtName()

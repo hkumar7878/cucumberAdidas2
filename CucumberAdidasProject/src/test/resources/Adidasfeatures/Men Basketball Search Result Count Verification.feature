@@ -45,12 +45,13 @@ Feature: Men Basketball Test Cases feature
   	And Now click on Add To Bag button
   	Then Verify that user is routed to Bag page
    And Verify correctness of details for selected product
-  #  Then Click on Checkout button
-  #  And Verify User is routed to Sign in page
-  #  Then click on Continue as Guest User checkbox
-   # And Click on Continue as Guest button without entering the email id
-   # Then Verify that validation message for valid email id appears
-   # And Now enter valid email address and click on Continue as Guest button
+  Then Click on Checkout button
+  And Verify User is routed to Sign in page
+  Then Enter New Customer Details
+  Then click on Continue as Guest User checkbox
+   And Click on Continue as Guest button with entering the email id
+   Then Verify that Your Shopping bag page appears
+ 
     
     
     

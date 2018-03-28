@@ -11,13 +11,17 @@ import cucumber.api.java.en.When;
 import Application_Pages.Add_To_Bag_Page;
 import Application_Pages.Adidas_Home_Page;
 import Application_Pages.Men_BaseketBall_Shoes_Page;
+import Application_Pages.Sign_In_Page;
 import Application_Pages.Women_TShirt_Page;
+import Application_Pages.Your_Shopping_Bag_Page;
 
 public class Verify_Women_TShirt_Checkout_Process{
 	
 	Adidas_Home_Page homePage;
 	Women_TShirt_Page womenTshirtPage;
 	Add_To_Bag_Page addToBagPage;
+	Sign_In_Page signinPage;
+	Your_Shopping_Bag_Page yourShoppingPage;
 	public static WebDriver driver;
 	String [] productDetails_SecondWindow=null;
 	Hook hook;
@@ -142,49 +146,54 @@ public class Verify_Women_TShirt_Checkout_Process{
 	public void verify_that_user_is_routed_to_Bag_page() throws Throwable {
 	   
 		addToBagPage = new Add_To_Bag_Page(driver);
-		addToBagPage.compareSelectedProductDetails(productDetails_SecondWindow);
+		addToBagPage.verify_AddToBag_ShoppingPage("YOUR SHOPPING BAG");
+		
 	}
 
 	@Then("^Verify correctness of details for selected product$")
 	public void verify_correctness_of_details_for_selected_product() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+		addToBagPage.compareSelectedProductDetails(productDetails_SecondWindow);
 	    
 	}
 
 	@Then("^Click on Checkout button$")
 	public void click_on_Checkout_button() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+		addToBagPage.click_CheckOut_Button();
 	   
 	}
 
 	@Then("^Verify User is routed to Sign in page$")
 	public void verify_User_is_routed_to_Sign_in_page() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+		signinPage = new Sign_In_Page(driver);
+		signinPage.verify_Sign_In_Page("SIGN IN");
+	   
+	}
+	
+	@And("^Enter New Customer Details$")
+	public void Enter_New_Customer_Details() throws Throwable {
+		signinPage.enterCustomerDetails("Hitesh", "Ghai", "test@gmail.com", "test","test");
 	   
 	}
 
 	@Then("^click on Continue as Guest User checkbox$")
 	public void click_on_Continue_as_Guest_User_checkbox() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
+	   signinPage.check_Guest_User_Checkbox();
 	    
 	}
 
-	@Then("^Click on Continue as Guest button without entering the email id$")
+	@Then("^Click on Continue as Guest button with entering the email id$")
 	public void click_on_Continue_as_Guest_button_without_entering_the_email_id() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	   
+	    signinPage.click_Continue_As_Guest_Btn();
+	}
+	
+	@Then("^Verify that Your Shopping bag page appears$")
+	public void Verify_that_Your_Shopping_bag_Page_appears() throws Throwable {
+		
+		yourShoppingPage = new Your_Shopping_Bag_Page(driver);
+		yourShoppingPage.verify_Your_Shopping_Page_Appears();
 	}
 
-	@Then("^Verify that validation message for valid email id appears$")
-	public void verify_that_validation_message_for_valid_email_id_appears() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    
-	}
+	
 
-	@Then("^Now enter valid email address and click on Continue as Guest button$")
-	public void now_enter_valid_email_address_and_click_on_Continue_as_Guest_button() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	  
-	}
 	
 }
