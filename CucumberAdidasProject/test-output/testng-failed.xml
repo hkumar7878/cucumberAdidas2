@@ -6,7 +6,7 @@
       <class name="helpers.RunTest">
         <methods>
           <include name="setUpClass"/>
-          <include name="feature" invocation-numbers="0"/>
+          <include name="feature"/>
           <include name="tearDownClass"/>
         </methods>
       </class> <!-- helpers.RunTest -->

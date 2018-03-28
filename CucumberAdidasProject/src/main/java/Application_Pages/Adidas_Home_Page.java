@@ -73,8 +73,8 @@ public class Adidas_Home_Page extends Hook{
 				switch(menuType) {
 		
 					case "Men" :
-						//genUtil.menuSelection(driver, men_FootWearMenu);
-						//	GenericUtility.menuSelection(driver, we);
+						genUtil.menuSelection(driver,men_Menu);
+						System.out.println("Exception");
 						break;
 				
 				case "Women":					
